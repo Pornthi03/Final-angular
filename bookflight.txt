@@ -1,0 +1,17 @@
+{
+    "flgihtID": 116,
+    "timeDeparture": "08.25",
+    "timeArrival": "9.40",
+    "dateFlight": "18-05-2565",
+    "locationDeparture": "หัวหิน",
+    "locationArrival": "เชียงราย"
+}
+
+{
+    "customerName": "Pornthida",
+    "customerSurname": "Phobai",
+    "flightID": 114,
+    "seatID": "10",
+    "dateDeparture": "13-05-2565",
+    "Adults":"1"
+}

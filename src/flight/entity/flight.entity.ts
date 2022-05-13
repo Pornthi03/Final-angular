@@ -3,12 +3,14 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class Flight {
   @PrimaryGeneratedColumn()
   flgihtID: number;
-  @Column({ name: 'TimeDeparture', nullable: false })
-  flgihtTimeDeparture: string;
-  @Column({ name: 'TimeArrival', nullable: false })
-  flgihtTimeArrival: string;
-  @Column({ name: 'LocationDeparture', nullable: false })
-  flgihtLocationDeparture: string;
-  @Column({ name: 'LocationArrival', nullable: false })
-  flgihtLocationArrival: string;
+  @Column({ nullable: false })
+  timeDeparture: string;
+  @Column({ nullable: false })
+  timeArrival: string;
+  @Column({ nullable: false })
+  dateFlight: string;
+  @Column({ nullable: false })
+  locationDeparture: string;
+  @Column({ nullable: false })
+  locationArrival: string;
 }

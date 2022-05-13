@@ -5,14 +5,17 @@ export class FlightDto {
   flgihtID: number;
 
   @IsString()
-  flgihtTimeDeparture: string;
+  timeDeparture: string;
 
   @IsString()
-  flgihtTimeArrival: string;
+  timeArrival: string;
 
   @IsString()
-  flgihtLocationDeparture: string;
+  dateFlight: string;
 
   @IsString()
-  flgihtLocationArrival: string;
+  locationDeparture: string;
+
+  @IsString()
+  locationArrival: string;
 }
