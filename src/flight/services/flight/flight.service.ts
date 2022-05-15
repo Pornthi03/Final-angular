@@ -37,8 +37,8 @@ export class FlightService {
     return this.seatRepository.save(astd);
   }
 
-  loadAllsSeat(): Promise<SeatDto[]> {
-    return this.seatRepository.find();
+  async loadAllsSeat(id: number): Promise<SeatDto[]> {
+    return await this.seatRepository.find({ flightID: id });
   }
 
   createBooking(astd: BookingDto): Promise<BookingDto> {
@@ -49,7 +49,7 @@ export class FlightService {
     return this.bookingRepository.find();
   }
 
-  loadFlight(
+  async loadFlight(
     locationDeparture,
     locationArrival,
     dateFlight,
@@ -58,5 +58,54 @@ export class FlightService {
       'SELECT * FROM `flight` WHERE locationDeparture = $1 and locationArrival = $2 and dateFlight = $3;',
       [locationDeparture, locationArrival, dateFlight],
     );
+  }
+
+  async loadBooking(id: number): Promise<BookingDto> {
+    return await this.bookingRepository.findOne({ bookingID: id });
+  }
+
+  async removeF(id: number): Promise<void> {
+    await this.bookingRepository.delete(id);
+  }
+
+  async loadEmptyseats(flightID: number): Promise<SeatDto[]> {
+    return this.entityManager.query(
+      'SELECT seatID,seatNumber FROM `seat` JOIN flight ON flight.flgihtID = seat.flightID WHERE seatID NOT IN (SELECT seatID FROM `booking`) AND flight.flgihtID = $1;',
+      [flightID],
+    );
+  }
+
+  async loadIdlerseats(flightID: number): Promise<SeatDto[]> {
+    return this.entityManager.query(
+      'SELECT seatID,seatNumber FROM `seat` JOIN flight ON flight.flgihtID = seat.flightID WHERE seatID IN (SELECT seatID FROM `booking`) AND flight.flgihtID = $1;',
+      [flightID],
+    );
+  }
+
+  async loadFlightOne(id: number): Promise<FlightDto> {
+    try {
+      return await this.flightRepository.findOne({ flgihtID: id });
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async verifyFlight(id: number, dateD: string): Promise<FlightDto> {
+    try {
+      return await this.flightRepository.findOne({
+        flgihtID: id,
+        dateFlight: dateD,
+      });
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async loadSeatOne(id: number): Promise<SeatDto> {
+    try {
+      return await this.seatRepository.findOne({ seatID: id });
+    } catch (error) {
+      return error;
+    }
   }
 }
